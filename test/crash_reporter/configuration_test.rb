@@ -21,6 +21,22 @@ describe CrashReporter::Configure do
     assert_instance_of DemoReporter, config.engines.first
   end
 
+  it "gets project default name from git" do
+    assert_equal "tooling-crash-reporter", config.project_name
+  end
+
+  it "gets repo url from git" do
+    assert_equal "https://github.com/articulate/tooling-crash-reporter", config.repo_url
+  end
+
+  it "gets repo name from git" do
+    assert_equal "tooling-crash-reporter", config.repo_name
+  end
+
+  it "gets repo path from git" do
+    assert_equal "articulate/tooling-crash-reporter", config.repo_path
+  end
+
   it 'can configure via a block' do
     config = CrashReporter::Configure.setup do |c|
       c.engine = CustomReporter.new
