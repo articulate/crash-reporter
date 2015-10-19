@@ -49,6 +49,7 @@ MyCoolClass.new.method_that_could_crash
 
 Alternatively, you can handle the error submission yourself without the class-level error handling capture (possibly a more explicit method):
 
+```ruby
 class MyCoolClass
   include CrashReporter::DSL
 
@@ -70,6 +71,7 @@ class MyCoolClass
     end
   end
 end
+```
 
 ## Development
 
