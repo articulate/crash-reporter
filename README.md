@@ -1,5 +1,9 @@
 # CrashReporter
 
+A meta-tool to enable crash info collection from our toolset without manual effort required from users.
+
+CrashReporter will allow you to build out crash report collection and reporting procedures in response to a failure of some kind within a given project. This is made more for cli tools. Included behaviors allow GitHub issues to be created on errors raised. Additional reporters can be built and included in the workflow as required.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -72,6 +76,33 @@ class MyCoolClass
   end
 end
 ```
+
+You can additionally define your own reporters. All these reporters require is a `run` method that takes a string or an object derived from Ruby's `StandardError`. `StandardError` is the recommended method as it allows us to collect backtrace information from the crash in a uniform manner.
+
+```ruby
+class SlackReporter
+  def initialize(hook_url)
+    @hook_url = hook_url
+   end
+
+  def run(error)
+    HTTP.post(@hook_url,
+      json: {
+        text: "WE GOT PROBLEMS: #{error.message}"
+      })
+  end
+end
+```
+
+Then register your new reporter:
+
+```ruby
+# Register a new webhook and use the URL here
+
+CrashReporter.configuration.engines << SlackReporter.new('https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX')
+```
+
+Then crashes will push notifications to Slack as well! Note you can stack notifications by `<<` them to the `engines` array. You can clear these by setting `CrashReporter.configuration.engine = SlackReporter.new(...)` which will add the single reporter.
 
 ## Development
 
