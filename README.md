@@ -47,7 +47,29 @@ MyCoolClass.new.method_that_could_crash
 # Will submit a GitHub issue to your repo and re-raise error!
 ```
 
+Alternatively, you can handle the error submission yourself without the class-level error handling capture (possibly a more explicit method):
 
+class MyCoolClass
+  include CrashReporter::DSL
+
+  ARealBadThing = Class.new(StandardError)
+
+  def method_that_could_crash
+    capture_errors do
+      raise ARealBadThing
+    end
+  end
+
+  # or
+
+  def will_crash
+    begin
+      raise StandardError, "Nope!"
+    rescue StandardError => e
+      report_crash e   # or any raw string message you want
+    end
+  end
+end
 
 ## Development
 

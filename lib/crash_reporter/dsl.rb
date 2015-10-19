@@ -25,5 +25,19 @@ module CrashReporter
     def self.included(base)
       base.extend ClassMethods
     end
+
+    def capture_errors(&block)
+      begin
+        yield
+      rescue StandardError => e
+        report_crash(e)
+
+        raise e
+      end
+    end
+
+    def report_crash(data)
+      CrashReporter.report(data)
+    end
   end
 end
