@@ -19,12 +19,35 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
+# explicitly require desired reporters
+require 'crash_reporter/reporters/github_issues'
+
 CrashReporter.setup do |c|
-  c.engine = CrashReporter::GithubIssues.new('username/repo', 'username', 'auth_token')
-  c.default_tag = "crashy"
+  c.engine = CrashReporter::GithubIssues.new('username/repo', 'auth_token')
+  c.default_tag = "crashy"   # defaults to 'crash report'
+end
+```
+
+Note that the repo name can actually be auto-discovered from the local git repo as long as you have a proper `origin` remote setup.
+
+```ruby
+class MyCoolClass
+  include CrashReporter::DSL
+
+  def method_that_could_crash
+    raise StandardError
+  end
+
+  # this has to be _after_ all the methods you wish to capture as we redefine the methods to include error capturing
+  capture_errors :method_that_could_crash
 end
 
+MyCoolClass.new.method_that_could_crash
+
+# Will submit a GitHub issue to your repo and re-raise error!
 ```
+
+
 
 ## Development
 
