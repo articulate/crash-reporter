@@ -3,5 +3,6 @@ require 'crash_reporter'
 
 require 'minitest/autorun'
 require 'minitest/reporters'
+require 'webmock/minitest'
 
 Minitest::Reporters.use!
