@@ -17,7 +17,7 @@ module CrashReporter
           accept: 'application/vnd.github.v3+json',
           authorization: "token #{@token}"
       ).post("#{GH_URI}/repos/#{@repo_name}/issues", json: {
-          labels: [CrashReporter.configuration.default_tag],
+          labels: CrashReporter.configuration.tags,
           title: "Crash report from #{CrashReporter.configuration.project_name}",
           body: data
       })

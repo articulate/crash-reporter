@@ -40,10 +40,18 @@ describe CrashReporter::Configure do
   it 'can configure via a block' do
     config = CrashReporter::Configure.setup do |c|
       c.engine = CustomReporter.new
-      c.default_tag = "ur_mom"
+      c.tags = "ur_mom"
     end
 
-    assert_equal "ur_mom", config.default_tag
+    assert_equal "ur_mom", config.tags.first
     assert_instance_of CustomReporter, config.engines.first
+  end
+
+  it 'adds version to tags' do
+    config = CrashReporter::Configure.setup do |c|
+      c.version = "1.2.3"
+    end
+
+    assert_equal ["crash report", '1.2.3'], config.tags
   end
  end

@@ -7,7 +7,7 @@ describe CrashReporter::GithubIssues do
   before do
     CrashReporter.configure do |c|
       c.project_name = "Testing things"
-      c.default_tag = "yo dawg"
+      c.tags = "yo dawg"
     end
   end
 

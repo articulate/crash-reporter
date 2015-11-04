@@ -1,6 +1,6 @@
 module CrashReporter
   class Configure
-    attr_accessor :engines, :default_tag, :project_name, :repo
+    attr_accessor :engines, :tags, :project_name, :repo_url, :version
 
     def self.setup(&block)
       config = new
@@ -11,6 +11,7 @@ module CrashReporter
 
     def initialize
       @engines = []
+      @tags = ['crash report']
     end
 
     # clears out all prior added engines
@@ -18,8 +19,8 @@ module CrashReporter
       @engines = [engine]
     end
 
-    def default_tag
-      @default_tag || 'crash report'
+    def tags=(*tags)
+      @tags = tags
     end
 
     def project_name
@@ -36,6 +37,11 @@ module CrashReporter
 
     def repo_name
       repo_url.split('/').last
+    end
+
+    def version=(version)
+      @version = version
+      @tags << version
     end
   end
 end
