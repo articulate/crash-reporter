@@ -1,5 +1,3 @@
-require 'rugged'
-
 module CrashReporter
   class Configure
     attr_accessor :engines, :default_tag, :project_name, :repo
@@ -13,8 +11,6 @@ module CrashReporter
 
     def initialize
       @engines = []
-
-      @repo = Rugged::Repository.discover('.')
     end
 
     # clears out all prior added engines
@@ -31,7 +27,7 @@ module CrashReporter
     end
 
     def repo_url
-      repo.remotes['origin'].url
+      @repo_url ||= `git config --get remote.origin.url`.chomp
     end
 
     def repo_path
