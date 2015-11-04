@@ -28,7 +28,7 @@ require 'crash_reporter/reporters/github_issues'
 
 CrashReporter.setup do |c|
   c.engine = CrashReporter::GithubIssues.new('username/repo', 'auth_token')
-  c.default_tag = "crashy"   # defaults to 'crash report'
+  c.tags = "crashy"   # defaults to 'crash report'
 end
 ```
 
@@ -114,3 +114,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/crash-reporter.
 
+## License
+
+This software is provided under the the [MIT license](LICENSE).
