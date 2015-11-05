@@ -32,11 +32,11 @@ module CrashReporter
     end
 
     def repo_path
-      repo_url.split('/').last(2).join('/')
+      repo_url.split('/').last(2).join('/').gsub('.git', '')
     end
 
     def repo_name
-      repo_url.split('/').last
+      repo_path.split('/').last
     end
 
     def version=(version)
