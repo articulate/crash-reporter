@@ -1,5 +1,6 @@
 require 'crash_reporter/version'
 require 'crash_reporter/configure'
+require 'crash_reporter/dsl'
 
 module CrashReporter
   class << self
