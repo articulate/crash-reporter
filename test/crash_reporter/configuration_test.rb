@@ -22,19 +22,19 @@ describe CrashReporter::Configure do
   end
 
   it "gets project default name from git" do
-    assert_equal "tooling-crash-reporter", config.project_name
+    assert_equal "crash-reporter", config.project_name
   end
 
   it "gets repo url from git" do
-    assert_equal "https://github.com/articulate/tooling-crash-reporter", config.repo_url
+    assert_equal "https://github.com/articulate/crash-reporter", config.repo_url
   end
 
   it "gets repo name from git" do
-    assert_equal "tooling-crash-reporter", config.repo_name
+    assert_equal "crash-reporter", config.repo_name
   end
 
   it "gets repo path from git" do
-    assert_equal "articulate/tooling-crash-reporter", config.repo_path
+    assert_equal "articulate/crash-reporter", config.repo_path
   end
 
   it 'can configure via a block' do
